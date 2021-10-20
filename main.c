@@ -6,7 +6,7 @@
 int main()
 {
     char str[MAX_STR_LEN];
-    scanf("%s", str);
+    scanf("%s[^\n]", str);
 
     start_program(str);
     return 1;
