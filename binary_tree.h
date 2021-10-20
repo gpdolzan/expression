@@ -12,5 +12,6 @@ typedef struct t_node
 
 t_node* initialize(char value);
 t_node* assemble_tree(char* str, int* i);
+void free_nodes(t_node* node);
 
 #endif
