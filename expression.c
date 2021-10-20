@@ -50,6 +50,10 @@ int calculate(t_node* node)
         printf("%d + %d\n", left_node_value, right_node_value);
         return left_node_value + right_node_value;
     }
-    else
-        return node->value-48;
+    else if(node->value == '\0')
+    {
+        printf("TESTING: %d", (*(node->number)));
+        if(node->number != NULL)
+            return (*(node->number));
+    }
 }

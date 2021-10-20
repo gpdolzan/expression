@@ -1,4 +1,5 @@
 #include "binary_tree.h"
+#include <stdio.h>
 
 t_node* initialize(char* value, int value_size)
 {
@@ -15,18 +16,24 @@ t_node* initialize(char* value, int value_size)
         }    
     }
     else
+    {
+        printf("printing array to check info\n");
+        for(int i = 0; i < value_size; i++)
+            printf("%c ", value[i]);
+        printf("\n");
         number = atoi(value);
+        printf("number after atoi: %d\n", number);
+    }
 
     t_node* node = (t_node*)malloc(sizeof(t_node));
     if(symbol_flag == 1)
-    {
-        node->value = value;
-        node->number = NULL;
-    }
+        node->value = value[0];
     else
     {
-        node->number = number;
-        node->value = NULL;
+        node->number = (int*)malloc(sizeof(int));
+        printf("number before placing %d\n", number);
+        node->number = &(number);
+        node->value = '\0';
     }
     node->right = NULL;
     node->left = NULL;
@@ -38,7 +45,7 @@ t_node* assemble_tree(char* str, int* i)
     int number_position = 0;
     int number_size = 0;
     int str_position = 0;
-    char* number_in_str;
+    char* str_aux;
     t_node* node = NULL;
 
     if (str[*i] == '(') 
@@ -46,20 +53,25 @@ t_node* assemble_tree(char* str, int* i)
         (*i)++;
         number_position = (*i);
 
-        while(str[number_position] != ')')
+        while((str[number_position] != ')') || (str[number_position] != '('))
             number_position++;
+        number_position--;
 
         number_size = (number_position - (*i)) + 1;
-        number_in_str = (char*)malloc((sizeof(char) * number_size) + 1);
+        str_aux = (char*)malloc((sizeof(char) * number_size) + 1);
 
         for(int j = (*i); j <= number_position; j++)
         {
-            number_in_str[str_position] = str[j];
+            str_aux[str_position] = str[j];
             str_position++;
         }
-        node = initialize(number_in_str, number_size); 
+        str[number_position + 1] = '\0';
+
+        printf("STRING: %s", str_aux);
+
+        node = initialize(str_aux, number_size); 
         (*i) = number_position;
-        free(number_in_str);
+        free(str_aux);
 
         (*i)++;
         node->left = assemble_tree(str, i);
