@@ -8,7 +8,7 @@
 typedef struct t_node
 {
     char value;
-    int* number;
+    int number;
     struct t_node *left;
     struct t_node *right;
 } t_node;

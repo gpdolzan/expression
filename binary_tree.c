@@ -10,29 +10,22 @@ t_node* initialize(char* value, int value_size)
     if(value_size == 1)
     {
         for(int i = 0; i < SYMBOLS_SIZE; i++)
-        {
             if(value[0] == symbols[i])
+            {
                 symbol_flag = 1;
-        }    
+                break;
+            }
     }
-    else
-    {
-        printf("printing array to check info\n");
-        for(int i = 0; i < value_size; i++)
-            printf("%c ", value[i]);
-        printf("\n");
+
+    if(symbol_flag != 1)
         number = atoi(value);
-        printf("number after atoi: %d\n", number);
-    }
 
     t_node* node = (t_node*)malloc(sizeof(t_node));
     if(symbol_flag == 1)
         node->value = value[0];
     else
     {
-        node->number = (int*)malloc(sizeof(int));
-        printf("number before placing %d\n", number);
-        node->number = &(number);
+        node->number = number;
         node->value = '\0';
     }
     node->right = NULL;
@@ -53,7 +46,7 @@ t_node* assemble_tree(char* str, int* i)
         (*i)++;
         number_position = (*i);
 
-        while((str[number_position] != ')') || (str[number_position] != '('))
+        while((str[number_position] != ')') && (str[number_position] != '('))
             number_position++;
         number_position--;
 
@@ -65,9 +58,7 @@ t_node* assemble_tree(char* str, int* i)
             str_aux[str_position] = str[j];
             str_position++;
         }
-        str[number_position + 1] = '\0';
-
-        printf("STRING: %s", str_aux);
+        str_aux[str_position] = '\0';
 
         node = initialize(str_aux, number_size); 
         (*i) = number_position;
