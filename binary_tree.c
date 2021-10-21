@@ -22,15 +22,11 @@ t_node* initialize(char* value, int value_size)
 
     t_node* node = (t_node*)malloc(sizeof(t_node));
     if(symbol_flag == 1)
-    {
         node->value = value[0];
-        printf("Criei um nodo simbolo: %c\n", node->number);
-    }
     else
     {
         node->number = number;
         node->value = '\0';
-        printf("Criei um nodo numero: %d\n", node->number);
     }
     node->right = NULL;
     node->left = NULL;
