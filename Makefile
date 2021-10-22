@@ -25,6 +25,6 @@ expression.o: expression.c expression.h
 clean:
 	rm -f *~ *.o
 
-#remove arquivos temporarios
+#remove arquivos temporarios e executavel 
 purge: clean
 	rm -f calculadora
